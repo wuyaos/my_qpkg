@@ -1,0 +1,439 @@
+proxy-providers:
+  LIAN:
+    type: http
+    # 这里填proxy-provider-converter转换得到的链接
+    url: "xxxx"
+    interval: 3600
+    # 这里也根据proxy-provider-converter填写
+    path: ./api.nxtlnodes.com.yaml
+    health-check:
+      enable: true
+      interval: 600
+      # lazy: true
+      url: http://www.gstatic.com/generate_204
+
+# 使用混合端口
+mixed-port: 7890
+# 部署在公网，关闭lan
+allow-lan: true
+bind-address: "*"
+mode: Rule
+log-level: info
+ipv6: false
+hosts:
+  services.googleapis.cn: 216.58.200.67
+  www.google.cn: 216.58.200.67
+# 外部管理IP和端口
+external-controller: 0.0.0.0:9090
+# 外部管理密码
+# secret: 'aafe1234'
+clash-for-android:
+  append-system-dns: false
+profile:
+  tracing: true
+dns:
+  enable: true
+  listen: 127.0.0.1:8853
+  default-nameserver:
+    - 223.5.5.5
+    - 1.0.0.1
+    - 114.114.114.114
+    - 180.76.76.76
+    - 1.2.4.8
+    - 8.8.8.8
+    - 4.2.2.1
+    - 4.2.2.2
+  ipv6: false
+  enhanced-mode: fake-ip
+  # 使用本地hosts文件
+  use-hosts: true
+  # 国内用下列DNS解析
+  nameserver:
+    - https://rubyfish.cn/dns-query
+    - udp://223.5.5.5
+    - udp://180.76.76.76
+    - udp://1.2.4.8
+    - udp://210.2.4.8
+    - tcp://114.114.114.114
+    - tls://1.12.12.12
+    - tls://120.53.53.53
+    - tls://dns.alidns.com
+    - tls://dot.pub
+    - tls://dot.360.cn
+    - https://223.5.5.5/dns-query
+    - https://223.6.6.6/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - https://1.12.12.12/dns-query
+    - https://120.53.53.53/dns-query
+    - https://doh.360.cn/dns-query
+    # ipv6的DNS
+    # - "[2400:3200::1]:53"
+    # - "[2400:3200:baba::1]:53"
+    # - https://2400:3200::1/dns-query
+    # - https://2400:3200:baba::1/dns-query
+    # - "[2402:4e00::]:53"
+    # - "[2400:da00::6666]:53"
+    # - "[2001:dc7:1000::1]:53"
+    # - "[240C::6666]:53"
+    # - "[240C::6644]:53"
+    # - tls://dns.ipv6dns.com
+    # - https://dns.ipv6dns.com/dns-query
+    # - "[2001:cc0:2fff:1::6666]:53"
+    # - "[2001:cc0:2fff:2::6]:53"
+    # - "[2001:da8::666]:53"
+    # - "[2001:da8:8000:1:202:120:2:101]:53"
+    # - "[2001:da8:202:10::36]:53"
+    # - "[2001:da8:202:10::37]:53"
+    # - "[2001:da8:208:10::6]:53"
+    # - "[2001:da8::666]:53"
+  fake-ip-filter:
+    - "*.lan"
+    - stun.*.*.*
+    - stun.*.*
+    - time.windows.com
+    - time.nist.gov
+    - time.apple.com
+    - time.asia.apple.com
+    - "*.ntp.org.cn"
+    - "*.openwrt.pool.ntp.org"
+    - time1.cloud.tencent.com
+    - time.ustc.edu.cn
+    - pool.ntp.org
+    - ntp.ubuntu.com
+    - ntp.aliyun.com
+    - ntp1.aliyun.com
+    - ntp2.aliyun.com
+    - ntp3.aliyun.com
+    - ntp4.aliyun.com
+    - ntp5.aliyun.com
+    - ntp6.aliyun.com
+    - ntp7.aliyun.com
+    - time1.aliyun.com
+    - time2.aliyun.com
+    - time3.aliyun.com
+    - time4.aliyun.com
+    - time5.aliyun.com
+    - time6.aliyun.com
+    - time7.aliyun.com
+    - "*.time.edu.cn"
+    - time1.apple.com
+    - time2.apple.com
+    - time3.apple.com
+    - time4.apple.com
+    - time5.apple.com
+    - time6.apple.com
+    - time7.apple.com
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+    - music.163.com
+    - "*.music.163.com"
+    - "*.126.net"
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - "*.kuwo.cn"
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - "*.y.qq.com"
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - "*.xiami.com"
+    - "*.music.migu.cn"
+    - music.migu.cn
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    - localhost.ptlogin2.qq.com
+    - "*.*.*.srv.nintendo.net"
+    - "*.*.stun.playstation.net"
+    - xbox.*.*.microsoft.com
+    - "*.ipv6.microsoft.com"
+    - "*.*.xboxlive.com"
+    - speedtest.cros.wr.pvp.net
+  fallback:
+    - tls://dns.google
+    - tls://dns.adguard.com
+    - tls://dns-family.adguard.com
+    - tls://dot.sb
+    - tls://1dot1dot1dot1.cloudflare-dns.com
+    - tls://one.one.one.one
+    - https://dns.google/dns-query
+    - https://dns.google/resolve
+    - https://dns.quad9.net/dns-query
+    - https://doh.opendns.com/dns-query
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.adguard.com/dns-query
+    - https://doh.dns.sb/dns-query
+    - https://doh.sb/dns-query
+    - https://public.dns.iij.jp/dns-query
+    - https://doh-jp.blahdns.com/dns-query
+    # 带家庭保护或者安全的DNS
+    # - tls://dns.cleanbrowsing.org
+    # - https://dns11.quad9.net/dns-query
+    # - https://doh.familyshield.opendns.com/dns-query
+    # - https://dns-family.adguard.com/dns-query
+    # - https://doh.cleanbrowsing.org/doh/family-filter/
+      # ipv6的DNS
+    # - https://[2001:4860:4860::64]/dns-query
+    # - https://[2001:4860:4860::6464]/dns-query
+    # - https://[2606:4700:4700::1111]/dns-query
+    # - https://[2606:4700:4700::1001]/dns-query
+    # - https://[2606:4700:4700::64]/dns-query
+    # - https://[2606:4700:4700::6464]/dns-query
+    # - https://dns.quad9.net/dns-query
+    # - https://dns11.quad9.net/dns-query
+    - https://dns.rubyfish.cn/dns-query
+    - https://public.dns.iij.jp/dns-query
+    - tls://8.8.4.4
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 0.0.0.0/32
+      - 127.0.0.1/32
+      - 10.0.0.0/8
+      - 100.64.0.0/10
+      - 169.254.0.0/16
+      - 172.16.0.0/12
+      - 192.0.0.0/24
+      - 192.0.2.0/24
+      - 192.168.0.0/16
+      - 192.88.99.0/24
+      - 198.18.0.0/15
+      - 198.51.100.0/24
+      - 203.0.113.0/24
+      - 224.0.0.0/4
+      - 240.0.0.0/4
+      - 255.255.255.255/32
+    domain:
+      - +.google.com
+      - +.facebook.com
+      - +.twitter.com
+      - +.youtube.com
+      - +.xn--ngstr-lra8j.com
+      - +.google.cn
+      - +.googleapis.cn
+      - +.googleapis.com
+      - +.gvt1.com
+      - "+.githubusercontent.com"
+      - "+.googlevideo.com"     
+
+proxy-groups:
+    - { name: '♻️ 自动选择', type: url-test, url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50, use: ['LIAN'] }
+    - { name: '🧮 ChatGPT', type: select, use: ['LIAN'], proxies: ['♻️ 自动选择', DIRECT] }
+    - { name: '🚀 节点选择', type: select, use: ['LIAN'], proxies: ['♻️ 自动选择', DIRECT] }
+    - { name: '📲 电报消息', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '📹 油管视频', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '🎥 奈飞视频', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '📺 巴哈姆特', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '📺 哔哩哔哩', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '🌍 国外媒体', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: '🌏 国内媒体', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '📢 谷歌FCM', type: select, use: ['LIAN'], proxies: ['🚀 节点选择', '♻️ 自动选择', DIRECT] }
+    - { name: 'Ⓜ️ 微软云盘', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: 'Ⓜ️ 微软服务', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '🍎 苹果服务', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '🎮 游戏平台', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '🎶 网易音乐', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '🎯 全球直连', type: select, use: ['LIAN'], proxies: [DIRECT, '🚀 节点选择', '♻️ 自动选择'] }
+    - { name: '🍃 应用净化', type: select, use: ['LIAN'], proxies: [REJECT, DIRECT] }
+    - { name: '🛑 广告拦截', type: select, use: ['LIAN'], proxies: [REJECT, DIRECT, '🎯 全球直连'] }
+    - { name: '🛑 全球拦截', type: select, use: ['LIAN'], proxies: ['REJECT'] }
+    - { name: '🐟 漏网之鱼', type: select, use: ['LIAN'], proxies: ['🎯 全球直连', '🚀 节点选择', DIRECT] }
+
+rules:
+  - 'RULE-SET,Reject,🛑 广告拦截'
+  - 'RULE-SET,Direct,🎯 全球直连'
+  - 'RULE-SET,OpenAI,🧮 ChatGPT'
+  - 'DOMAIN-SUFFIX,poe.com,🧮 ChatGPT'
+  - 'RULE-SET,Apple,🍎 苹果服务'
+  - 'RULE-SET,Microsoft,Ⓜ️ 微软服务'
+  - 'RULE-SET,PayPal,🎮 游戏平台'
+  - 'RULE-SET,Game,🎮 游戏平台'
+  - 'RULE-SET,GlobalMedia,🌍 国外媒体'
+  - 'RULE-SET,MainlandMedia,🌏 国内媒体'
+  - 'RULE-SET,PROXY,♻️ 自动选择'
+  - 'RULE-SET,SpeedTest,🎯 全球直连'
+  - 'RULE-SET,Domestic,🌏 国内媒体'
+  - 'GEOIP,CN,🌏 国内媒体'
+  - 'MATCH,🐟 漏网之鱼'
+  
+  # 自定义部分
+  - 'DOMAIN-SUFFIX,mangabz.com,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,tailscale.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,mikanani.me,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,manhuagui.com,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,mxwljsq.top,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,dmhy.org,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,fanart.tv,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,telegram.org,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,sonarr.tv,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,themoviedb.org,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,opensubtitles.org,♻️ 自动选择'
+  - 'DOMAIN-KEYWORD,tmdb,♻️ 自动选择'
+  - 'DOMAIN-KEYWORD,themoviedb,♻️ 自动选择'
+  - 'DOMAIN-KEYWORD,telegram,♻️ 自动选择'
+
+  # BT,PT 规则
+  - 'DOMAIN-KEYWORD,tracker,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,announce.php?passkey=,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,torrent,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,peer_id=,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,info_hash,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,get_peers,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,find_node,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,BitTorrent,🎯 全球直连'
+  - 'DOMAIN-KEYWORD,announce_peer,🎯 全球直连'
+
+  # PT站
+  - 'DOMAIN-SUFFIX,p2pelite.com,♻️ 自动选择'
+  - 'DOMAIN-SUFFIX,edu.cn,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,jpopsuki.eu,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,beitai.pt,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,soulvoice.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,nicept.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,tjupt.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,nanyangpt.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,skyeysnow.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,byr.pt,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,pthome.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,pterclub.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,dicmusic.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,et8.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,btschool.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,keepfrds.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,totheglory.im,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,ourbits.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,open.cd,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,springsunday.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdsky.me,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hd4fans.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,m-team.cc,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdchina.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,lemonhd.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,pttime.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,upxin.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdhome.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdbd.us,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,eastgame.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,filelist.io,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,chdbits.co,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,gazellegames.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,discfan.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,ccfbits.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,orpheus.network,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,beyond-hd.me,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,avistaz.to,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,cinemaz.to,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,exoticaz.to,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,privatehd.to,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,htpt.cc,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,ptsbao.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdatmos.club,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,greatposterwall.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdpost.top,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdcity.city,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,shadowthein.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,torrentleech.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hd-space.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hares.top,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdfans.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,msg.vg,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,audiences.me,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,haidan.video,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdtime.org,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hdarea.co,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,carpt.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,gainbound.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,hddolby.com,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,azusa.ru,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,wintersakura.net,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,leaves.red,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,piggo.me,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,monikadesign.uk,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,animetorrents.me,🎯 全球直连'
+  - 'DOMAIN-SUFFIX,iptorrents.com,♻️ 自动选择'
+  
+rule-providers:
+  OpenAI:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/OpenAI.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/OpenAI.yaml'
+  Direct:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Direct.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Direct.yaml'
+  Domestic:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Domestic.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Domestic.yaml'
+  Game:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Game.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Game.yaml'
+  GlobalMedia:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/GlobalMedia.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/GlobalMedia.yaml'
+  MainlandMedia:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/MainlandMedia.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/MainlandMedia.yaml'
+  PROXY:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Proxy.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Proxy.yaml'
+  Reject:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Reject.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Reject.yaml'
+  Apple:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Apple.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Apple.yaml'
+  Microsoft:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/Microsoft.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/Microsoft.yaml'
+  PayPal:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/PayPal.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/PayPal.yaml'
+  SpeedTest:
+    behavior: classical
+    interval: 86400
+    path: ./Rules/SpeedTest.yaml
+    type: http
+    url: 'https://endpoint.fastgit.org/https://github.com/zzcabc/Rules/blob/master/Rules_Provider/Integrate/SpeedTest.yaml'
