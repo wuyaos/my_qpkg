@@ -6,9 +6,13 @@ APACHE_ROOT=`/sbin/getcfg SHARE_DEF defWeb -d Qweb -f /etc/config/def_share.info
 CONFIG_DIR=/share/Public/clash
 if [ ! -d $CONFIG_DIR ]; then
     mkdir -p $CONFIG_DIR
-    cp -rf $QPKG_ROOT/config.example.yaml $CONFIG_DIR/config.yaml
+fi
+# $CONFIG_DIR/url.txt
+if [ ! -f $CONFIG_DIR/url.txt ]; then
+    touch $CONFIG_DIR/url.txt
 fi
 WEBUI_DIR=$QPKG_ROOT/web
+SUBURL=$(cat $CONFIG_DIR/url.txt)
 export QNAP_QPKG=$QPKG_NAME
 export QPKG_NAME QPKG_ROOT
 
@@ -20,20 +24,24 @@ case "$1" in
         exit 1
     fi
 
-/bin/ln -sf $QPKG_ROOT /opt/$QPKG_NAME
-/bin/ln -sf $QPKG_ROOT/clash /usr/bin/clash
 # start daemon
-clash -d  $CONFIG_DIR -ext-ui $WEBUI_DIR > $CONFIG_DIR/log.txt &
+# $CONFIG_DIR/config.yaml存在则备份
+if [ -f $CONFIG_DIR/config.yaml ]; then
+    mv $CONFIG_DIR/config.yaml $CONFIG_DIR/config.yaml.bak
+fi
+wget -O $CONFIG_DIR/config.yaml $SUBURL
+$QPKG_ROOT/clash -d  $CONFIG_DIR -ext-ui $WEBUI_DIR &
+echo "0 6 * * * $QPKG_ROOT/clash.sh restart" >> /etc/config/crontab
+crontab /etc/config/crontab && /etc/init.d/crond.sh restart
     ;;
 
   stop)
 
 # kill all running processes
 /bin/kill -9 `/bin/pidof clash`
-rm -rf /usr/bin/clash
-rm -rf /opt/$QPKG_NAME
-
-
+# remove cronjob
+sed -i "\|${QPKG_ROOT}/clash.sh restart|d" /etc/config/crontab
+crontab /etc/config/crontab && /etc/init.d/crond.sh restart
     ;;
 
   restart)
